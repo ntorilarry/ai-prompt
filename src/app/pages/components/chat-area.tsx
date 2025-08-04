@@ -79,8 +79,8 @@ export default function ChatArea() {
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap justify-between items-center">
+                        <div className="flex  items-center gap-2">
                           <div className="inline-flex border border-gray-200 rounded-full p-0.5 ">
                             <button className="inline-flex shrink-0 justify-center items-center size-8 rounded-full text-gray-500 hover:bg-blue-100 hover:text-blue-800 focus:outline-none ">
                               <BiLike className="shrink-0 size-4" />

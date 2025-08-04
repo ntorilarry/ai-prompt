@@ -8,7 +8,7 @@ export default function ChatInterface() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-white">
+    <div className="flex flex-col lg:flex-row lg:h-screen bg-white">
       <Sidebar
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}
