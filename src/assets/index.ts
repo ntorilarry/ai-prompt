@@ -1,0 +1,1 @@
+export { default as EmailSuccess } from "./gifs/emailSuccess.gif";

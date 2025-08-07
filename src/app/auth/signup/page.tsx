@@ -1,24 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ApiClient } from "@/lib/api";
-import { useAuth } from "@/contexts/auth-context";
-import { SignInRequest } from "@/models/request/auth-request";
-import Loader from "@/components/loader";
 import toast from "react-hot-toast";
+import { SignUpRequest } from "@/models/request/auth-request";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import Loader from "@/components/loader";
+import { useRouter } from "next/navigation";
 
- const Login = () => {
+const Signup = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { login } = useAuth();
-  const router = useRouter();
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [formData, setFormData] = useState<SignInRequest>({
+  const [formData, setFormData] = useState<SignUpRequest>({
+    name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleInputChange = (
@@ -32,15 +33,23 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
 
     setIsLoading(true);
-    const response = await ApiClient.login(formData.email, formData.password);
+    const response = await ApiClient.signup(
+      formData.email,
+      formData.password,
+      formData.name
+    );
 
     if (response.error) {
       toast.error(response.error);
-    } else if (response.data?.user && response.data?.session) {
-      login(response.data.user, response.data.session.access_token);
-      router.push("/dashboard");
+    } else if (response.data?.message) {
+      toast.success(response.data.message);
+      router.push("/auth/verify-email");
     }
 
     setIsLoading(false);
@@ -49,12 +58,25 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-2xl font-bold mb-1">Sign In</h2>
+        <h2 className="text-2xl font-bold mb-1">Create Account</h2>
         <p className="text-sm text-gray-500 mb-6">
-          Enter your credentials to access your account
+          Sign up to get started with your account
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium mb-1">
+              Full Name
+            </label>
+            <input
+              name="name"
+              type="text"
+              onChange={handleInputChange}
+              required
+              disabled={isLoading}
+              className="w-full px-3 py-2.5 border border-gray-400 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-1">
               Email
@@ -96,28 +118,49 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
               />
             )}
           </div>
-          
+
+          <div className="relative">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium mb-1"
+            >
+              Confirm Password
+            </label>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              name="confirmPassword"
+              onChange={handleInputChange}
+              required
+              disabled={isLoading}
+              className="w-full px-3 py-2.5 border border-gray-400 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {showConfirmPassword ? (
+              <FiEyeOff
+                className="absolute end-2.5 bottom-[0.95rem] text-gray-600 text-lg"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              />
+            ) : (
+              <FiEye
+                className="absolute end-2.5 bottom-[0.95rem] text-gray-600 text-lg"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              />
+            )}
+          </div>
 
           <button
             type="submit"
             disabled={isLoading}
             className="w-full bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition disabled:opacity-50"
           >
-            {isLoading ? <Loader /> : "Sign In"}
+            {isLoading ? <Loader /> : "Sign Up"}
           </button>
         </form>
 
         <div className="mt-6 text-sm text-center space-y-2">
-          <Link
-            href="/auth/forgot-password"
-            className="text-blue-600 hover:underline"
-          >
-            Forgot your password?
-          </Link>
           <div>
-            Don&apos;t have an account?{" "}
-            <Link href="/auth/signup" className="text-blue-600 hover:underline">
-              Sign up
+            Already have an account?{" "}
+            <Link href="/auth/login" className="text-blue-600 hover:underline">
+              Sign in
             </Link>
           </div>
         </div>
@@ -126,4 +169,4 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
   );
 };
 
-export default Login;
+export default Signup;

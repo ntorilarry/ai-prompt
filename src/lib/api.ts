@@ -29,10 +29,10 @@ export class ApiClient {
   }
 
   // Auth methods
-  static async signup(email: string, password: string) {
+  static async signup(email: string, password: string, name: string) {
     return this.request<AuthResponse>("/auth/signup", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, name }),
     });
   }
 
