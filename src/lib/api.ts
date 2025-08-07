@@ -1,6 +1,6 @@
 import { ApiResponse, AuthResponse, Prompt } from "./type";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 export class ApiClient {
   private static async request<T>(
