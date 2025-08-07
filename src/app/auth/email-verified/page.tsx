@@ -9,9 +9,9 @@ const Verified = () => {
       {" "}
       <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
         <div className="w-full max-w-md bg-white rounded-lg shadow-sm p-6">
-          <Image className="w-48 " src={EmailVerified} alt="Verify Email" />
+          <Image className="w-28 " src={EmailVerified} alt="Verify Email" />
 
-          <h2 className="text-2xl font-bold mb-1">Verified</h2>
+          <h2 className="text-2xl font-bold mb-1">Emailed Verified</h2>
           <p className="text-sm text-gray-500 mb-6">
             Verification successful. You have successfully verified your email.
           </p>
