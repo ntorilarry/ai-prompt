@@ -13,15 +13,13 @@ const ResetPassword = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [formData, setFormData] = useState<ResetPasswordRequest>({
     accessToken: "",
     newPassword: "",
-    confirmPassword: "",
   });
 
-   useEffect(() => {
+  useEffect(() => {
     if (typeof window !== "undefined") {
       const hash = window.location.hash.substring(1); // remove the #
       const params = new URLSearchParams(hash);
@@ -69,7 +67,7 @@ const ResetPassword = () => {
       <div className="w-full max-w-md bg-white rounded-lg shadow-sm p-6">
         <h2 className="text-2xl font-bold mb-1">Reset Password</h2>
         <p className="text-sm text-gray-500 mb-6">
-        Reset your password to regain access to your account
+          Reset your password to regain access to your account
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -78,7 +76,7 @@ const ResetPassword = () => {
               htmlFor="password"
               className="block text-sm font-medium mb-1"
             >
-              Password
+              New Password
             </label>
             <input
               type={showNewPassword ? "text" : "password"}
@@ -97,34 +95,6 @@ const ResetPassword = () => {
               <FiEye
                 className="absolute end-2.5 bottom-[0.95rem] text-gray-600 text-lg"
                 onClick={() => setShowNewPassword(!showNewPassword)}
-              />
-            )}
-          </div>
-
-          <div className="relative">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium mb-1"
-            >
-              Confirm Password
-            </label>
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              name="confirmPassword"
-              onChange={handleInputChange}
-              required
-              disabled={isLoading}
-              className="w-full px-3 py-2.5 border border-gray-400 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {showConfirmPassword ? (
-              <FiEyeOff
-                className="absolute end-2.5 bottom-[0.95rem] text-gray-600 text-lg"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              />
-            ) : (
-              <FiEye
-                className="absolute end-2.5 bottom-[0.95rem] text-gray-600 text-lg"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               />
             )}
           </div>
