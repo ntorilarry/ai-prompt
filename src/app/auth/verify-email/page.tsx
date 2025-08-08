@@ -1,3 +1,5 @@
+"use client";
+
 import { EmailSuccess } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";

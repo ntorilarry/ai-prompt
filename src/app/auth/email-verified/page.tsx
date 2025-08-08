@@ -1,4 +1,6 @@
-import { EmailSuccess, EmailVerified } from "@/assets";
+"use client";
+
+import {EmailVerified } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
