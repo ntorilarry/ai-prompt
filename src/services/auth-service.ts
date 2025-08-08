@@ -1,6 +1,11 @@
 import { AuthResponse } from "@/models/response/auth-response";
 import { BaseApi } from "./base-api";
-import { SignInRequest, SignUpRequest } from "@/models/request/auth-request";
+import {
+  ForgotPasswordRequest,
+  ResetPasswordRequest,
+  SignInRequest,
+  SignUpRequest,
+} from "@/models/request/auth-request";
 
 export class AuthService extends BaseApi {
   static async signup(signupData: SignUpRequest) {
@@ -17,17 +22,17 @@ export class AuthService extends BaseApi {
     });
   }
 
-  static async forgotPassword(email: string) {
+  static async forgotPassword(forgotPasswordData: ForgotPasswordRequest) {
     return this.request<{ message: string }>("/auth/forgot-password", {
       method: "POST",
-      body: JSON.stringify({ email }),
+      body: JSON.stringify(forgotPasswordData),
     });
   }
 
-  static async resetPassword(accessToken: string, newPassword: string) {
+  static async resetPassword(resetPasswordData: ResetPasswordRequest) {
     return this.request<{ message: string }>("/auth/reset-password", {
       method: "POST",
-      body: JSON.stringify({ accessToken, newPassword }),
+      body: JSON.stringify(resetPasswordData),
     });
   }
 }
