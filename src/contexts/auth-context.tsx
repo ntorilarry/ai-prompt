@@ -1,6 +1,7 @@
 "use client";
 
-import { User } from "@/lib/type";
+
+import { User } from "@/models/response/auth-response";
 import {
   createContext,
   useContext,
