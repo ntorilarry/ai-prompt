@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ApiClient } from "@/lib/api";
 import toast from "react-hot-toast";
 import { SignUpRequest } from "@/models/request/auth-request";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Loader from "@/components/loader";
 import { useRouter } from "next/navigation";
+import { AuthService } from "@/services/auth-service";
 
 const Signup = () => {
   const router = useRouter();
@@ -39,11 +39,7 @@ const Signup = () => {
     }
 
     setIsLoading(true);
-    const response = await ApiClient.signup(
-      formData.email,
-      formData.password,
-      formData.name
-    );
+    const response = await AuthService.signup(formData);
 
     if (response.error) {
       toast.error(response.error);

@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ApiClient } from "@/lib/api";
 import { useAuth } from "@/contexts/auth-context";
 import { SignInRequest } from "@/models/request/auth-request";
 import Loader from "@/components/loader";
 import toast from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { AuthService } from "@/services/auth-service";
 
  const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +34,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
     e.preventDefault();
 
     setIsLoading(true);
-    const response = await ApiClient.login(formData.email, formData.password);
+    const response = await AuthService.login(formData);
 
     if (response.error) {
       toast.error(response.error);

@@ -15,14 +15,13 @@ const VerifyEmail = () => {
           <p className="text-sm text-gray-500 mb-6">
             Signup successful. Please check your email to verify your account.
           </p>
-  
-            <Link
-              href="/auth/login"
-              className="w-full block bg-gray-600 text-white text-center text-sm py-2 px-4 rounded hover:bg-gray-700 transition disabled:opacity-50"
-            >
-              Go to Login
-            </Link>
-      
+
+          <Link
+            href="/auth/login"
+            className="w-full block bg-gray-600 text-white text-center text-sm py-2 px-4 rounded hover:bg-gray-700 transition disabled:opacity-50"
+          >
+            Go to Login
+          </Link>
         </div>
       </div>
     </div>
