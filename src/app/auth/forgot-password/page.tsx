@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useAuth } from "@/contexts/auth-context";
 import { ForgotPasswordRequest } from "@/models/request/auth-request";
 import Loader from "@/components/loader";
 import toast from "react-hot-toast";
