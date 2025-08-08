@@ -44,10 +44,6 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.newPassword !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
 
     setIsLoading(true);
     const response = await AuthService.resetPassword(formData);
