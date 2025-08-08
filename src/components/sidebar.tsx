@@ -15,10 +15,8 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const sidebarItems = [
-    { icon: IoAdd, label: "New chat", href: "#" },
-    { icon: IoChatbubble, label: "Preline AI Discord", href: "#" },
-    { icon: IoDownload, label: "Save conversation", href: "#" },
-    { icon: IoSend, label: "Updates & FAQ", href: "#" },
+    { icon: IoAdd, label: "New chat", href: "/chat-prompt" },
+    { icon: IoChatbubble, label: "Prompts", href: "/prompts" },
   ];
 
   return (

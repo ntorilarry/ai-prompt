@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Sidebar from "./components/sidebar";
-import ChatArea from "./components/chat-area";
 import ProtectedRoute from "@/utils/protectedRoute";
+import Sidebar from "@/components/sidebar";
 
-export default function ChatInterface() {
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -15,10 +14,10 @@ export default function ChatInterface() {
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
         />
-        <div className="flex-1 flex flex-col lg:ml-0">
-          <ChatArea />
-        </div>
+        <div className="flex-1 flex flex-col lg:ml-0">{children}</div>
       </div>
     </ProtectedRoute>
   );
-}
+};
+
+export default MainLayout;

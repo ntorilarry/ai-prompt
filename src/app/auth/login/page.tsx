@@ -40,7 +40,7 @@ const Login = () => {
       toast.error(response.error);
     } else if (response.data?.user && response.data?.session) {
       login(response.data.user, response.data.session.access_token);
-      router.push("/dashboard");
+      router.push("/chat-prompt");
     }
 
     setIsLoading(false);

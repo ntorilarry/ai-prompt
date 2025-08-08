@@ -11,7 +11,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!isLoading) {
       if (user) {
-        router.push("/dashboard");
+        router.push("/chat-prompt");
       } else {
         router.push("/auth/login");
       }
