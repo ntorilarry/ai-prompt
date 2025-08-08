@@ -16,15 +16,27 @@ export class BaseApi {
         ...options,
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
       if (!response.ok) {
-        return { error: data.error || "An error occurred" };
+        return {
+          data: null as any,
+          meta: { totalPages: 0 }, // or use a more dynamic fallback
+          error: result.error || "An error occurred",
+        };
       }
 
-      return { data };
+      return {
+        data: result.data ?? result,
+        meta: result.meta ?? { totalPages: 1 },
+        message: result.message,
+      };
     } catch (error) {
-      return { error: "Network error occurred" };
+      return {
+        data: null as any,
+        meta: { totalPages: 0 },
+        error: "Network error occurred",
+      };
     }
   }
 }
