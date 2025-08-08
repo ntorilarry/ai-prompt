@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { AuthService } from "@/services/auth-service";
 
- const Login = () => {
+const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
@@ -96,12 +96,11 @@ import { AuthService } from "@/services/auth-service";
               />
             )}
           </div>
-          
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition disabled:opacity-50"
+            className="w-full bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900 transition disabled:opacity-50"
           >
             {isLoading ? <Loader /> : "Sign In"}
           </button>

@@ -20,7 +20,7 @@ const VerifyEmail = () => {
 
           <Link
             href="/auth/login"
-            className="w-full block bg-gray-600 text-white text-center text-sm py-2 px-4 rounded hover:bg-gray-700 transition disabled:opacity-50"
+            className="w-full block bg-gray-800 text-white text-center text-sm py-2 px-4 rounded hover:bg-gray-900 transition disabled:opacity-50"
           >
             Go to Login
           </Link>
