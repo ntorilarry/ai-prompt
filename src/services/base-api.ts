@@ -1,5 +1,6 @@
 import { ApiResponse } from "@/models/response/base-response";
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "");
 
 export class BaseApi {
   protected static async request<T>(
@@ -7,7 +8,7 @@ export class BaseApi {
     options: RequestInit = {}
   ): Promise<ApiResponse<T>> {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
+      const response = await fetch(`${baseUrl}${endpoint}`, {
         headers: {
           "Content-Type": "application/json",
           ...options.headers,
