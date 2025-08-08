@@ -75,26 +75,26 @@ const CreatePrompt: React.FC<CreatePromptProps> = ({
       >
         <form>
           <div className="my-3">
-            <label className="block text-sm  dark:text-white">Title</label>
+            <label className="block text-sm  ">Title</label>
             <input
               name="title"
               type="text"
               placeholder="Enter name"
               onChange={handleFormChanged}
               required
-              className="mt-2 border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg dark:text-white dark:bg-neutral-700 dark:placeholder-gray-300 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
+              className="mt-2 border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg  focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
             />
           </div>
 
           <div className="my-3">
-            <label className="block text-sm  dark:text-white">Content</label>
+            <label className="block text-sm  ">Content</label>
             <textarea
               name="content"
               placeholder="Enter description"
               onChange={handleFormChanged}
               rows={3}
               required
-              className="mt-2 border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg dark:text-white dark:bg-neutral-700 dark:placeholder-gray-300 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
+              className="mt-2 border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg  focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
             />
           </div>
         </form>
