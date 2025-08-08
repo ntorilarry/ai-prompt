@@ -7,6 +7,8 @@ import {
   IoSend,
   IoMenu,
 } from "react-icons/io5";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -19,6 +21,13 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
     { icon: IoChatbubble, label: "Prompts", href: "/prompts" },
   ];
 
+  const { logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/auth/login");
+  };
   return (
     <>
       {/* Mobile Header */}
@@ -83,20 +92,15 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
           {/* Footer */}
           <div className="mt-auto">
-            <div className="py-2.5 px-7">
-              <p className="inline-flex items-center gap-x-2 text-xs text-green-600">
-                <span className="block size-1.5 rounded-full bg-green-600"></span>
-                Active 12,320 people
-              </p>
-            </div>
             <div className="p-4 border-t border-gray-200 ">
-              <a
-                href="#"
+              <button
+                type="button"
+                onClick={handleLogout}
                 className="flex justify-between items-center gap-x-3 py-2 px-3 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
               >
-                Sign in
+                Sign Out
                 <IoSend className="shrink-0 size-4" />
-              </a>
+              </button>
             </div>
           </div>
         </nav>

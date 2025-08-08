@@ -44,16 +44,19 @@ export class PromptService extends BaseApi {
     if (search) queryParams.append("search", search);
 
     return this.request<{
-      meta: any; data: PromptResponse[]; token: string 
-}>(
-      `/prompts?${queryParams.toString()}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      data: PromptResponse[];
+      meta: {
+        total: number;
+        page: number;
+        size: number;
+        totalPages: number;
+      };
+    }>(`/prompts?${queryParams.toString()}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   static async updatePrompt(

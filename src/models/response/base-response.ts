@@ -1,6 +1,6 @@
 export interface ApiResponse<T> {
   data: T;
-  meta: {
+  meta?: {
     totalPages: number;
     // other meta fields
   };

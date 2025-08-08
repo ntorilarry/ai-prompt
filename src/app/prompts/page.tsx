@@ -12,7 +12,7 @@ import DataTableBody from "@/components/dataTableBody";
 import { ColumnDef } from "@tanstack/react-table";
 
 const Prompt = () => {
-  const {token, user } = useAuth();
+  const { token, user } = useAuth();
   const [prompts, setPrompts] = useState<PromptResponse[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -26,7 +26,7 @@ const Prompt = () => {
   );
 
   const fetchPrompts = async () => {
-    if (!user?.id) return;
+    if (!user?.id || !token) return; // Also check for token
     setIsLoading(true);
     try {
       const response = await PromptService.getUserPrompts({
@@ -34,15 +34,18 @@ const Prompt = () => {
         size: 10,
         userId: user.id,
         search,
-        token: token || "",
+        token: token,
       });
-      // Make sure to properly handle the response structure
-      if (response.data) {
-        setPrompts(response.data.data || []); // Assuming response.data contains the array
-        setTotalPages(response.data.meta?.totalPages || 1);
+
+      if (response.data && response.meta) {
+        setPrompts(Array.isArray(response.data) ? response.data : []);
+        setTotalPages(response.meta.totalPages || 1);
       }
+
+      console.log("Fetched prompts:", response.data);
     } catch (error) {
       console.error("Failed to fetch prompts:", error);
+      // Optionally set some error state here
     } finally {
       setIsLoading(false);
     }
@@ -50,7 +53,7 @@ const Prompt = () => {
 
   useEffect(() => {
     fetchPrompts();
-  }, [currentPage, search]);
+  }, [currentPage, search, user?.id, token]); // Add token and user.id as dependencies
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
