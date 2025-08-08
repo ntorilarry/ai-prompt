@@ -67,7 +67,7 @@ const ResetPassword = () => {
             </label>
             <input
               type={showNewPassword ? "text" : "password"}
-              name="password"
+              name="newPassword"
               onChange={handleInputChange}
               required
               disabled={isLoading}
