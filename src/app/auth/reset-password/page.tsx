@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { ResetPasswordRequest } from "@/models/request/auth-request";
@@ -16,9 +16,24 @@ const ResetPassword = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [formData, setFormData] = useState<ResetPasswordRequest>({
+    accessToken: "",
     newPassword: "",
     confirmPassword: "",
   });
+
+   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.substring(1); // remove the #
+      const params = new URLSearchParams(hash);
+      const token = params.get("access_token");
+
+      if (token) {
+        setFormData((prev) => ({ ...prev, accessToken: token }));
+      } else {
+        toast.error("Invalid or missing access token.");
+      }
+    }
+  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<
