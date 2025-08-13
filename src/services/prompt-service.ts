@@ -1,6 +1,9 @@
 import { PromptResponse } from "@/models/response/prompt-response";
 import { BaseApi } from "./base-api";
-import { createPromptRequest } from "@/models/request/prompt-request";
+import {
+  createPromptRequest,
+  editPromptRequest,
+} from "@/models/request/prompt-request";
 
 export class PromptService extends BaseApi {
   static async createPrompt(
@@ -61,16 +64,15 @@ export class PromptService extends BaseApi {
 
   static async updatePrompt(
     id: string,
-    title: string,
-    content: string,
+    editPromptData: editPromptRequest,
     token: string
   ) {
-    return this.request<PromptResponse>(`/prompts/${id}`, {
+    return this.request<any>(`/prompts/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ title, content }),
+      body: JSON.stringify(editPromptData),
     });
   }
 

@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  IoAdd,
-  IoChatbubble,
-  IoDownload,
-  IoSend,
-  IoMenu,
-} from "react-icons/io5";
+import { IoAdd, IoChatbubble } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/auth-context";
 
@@ -30,17 +24,6 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   };
   return (
     <>
-      {/* Mobile Header */}
-      <div className="lg:hidden flex justify-between items-center p-4 border-b border-gray-200 ">
-        <button
-          onClick={onToggle}
-          className="p-2 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
-        >
-          <IoMenu className="shrink-0 size-3.5" />
-          <span>Sidebar</span>
-        </button>
-      </div>
-
       {/* Sidebar */}
       <div
         className={`
@@ -96,10 +79,9 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="flex justify-between items-center gap-x-3 py-2 px-3 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                className="flex justify-between w-full items-center gap-x-3 py-2 px-3 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
               >
                 Sign Out
-                <IoSend className="shrink-0 size-4" />
               </button>
             </div>
           </div>

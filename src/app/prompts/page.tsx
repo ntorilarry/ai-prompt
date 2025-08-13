@@ -10,6 +10,8 @@ import CreatePrompt from "./components/createPrompt";
 import DataTableHeader from "@/components/dataTableHeader";
 import DataTableBody from "@/components/dataTableBody";
 import { ColumnDef } from "@tanstack/react-table";
+import { RiEditCircleLine } from "react-icons/ri";
+import EditPrompt from "./components/editPrompt";
 
 const Prompt = () => {
   const { token, user } = useAuth();
@@ -87,14 +89,17 @@ const Prompt = () => {
             <div className="flex space-x-2">
               <button
                 onClick={() => handleEdit(prompt)}
-                className="text-blue-500 hover:text-blue-700"
+                className="py-2 px-2 inline-flex items-center gap-x-2 text-xs font-medium rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
               >
+                <RiEditCircleLine />
                 Edit
               </button>
+
               <button
                 onClick={() => handleDelete(prompt)}
-                className="text-red-500 hover:text-red-700"
+                className="py-2 px-2 inline-flex items-center gap-x-2 text-xs font-medium rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
               >
+                <RiEditCircleLine />
                 Delete
               </button>
             </div>
@@ -145,6 +150,12 @@ const Prompt = () => {
           open={openAdd}
           onClose={() => setOpenAdd(false)}
           userId={user?.id || ""}
+        />
+
+        <EditPrompt
+          open={openEdit}
+          onClose={() => setOpenEdit(false)}
+          selectedPrompt={selectedPrompt}
         />
       </div>
     </MainLayout>

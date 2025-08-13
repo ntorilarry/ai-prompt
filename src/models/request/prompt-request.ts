@@ -3,3 +3,8 @@ export interface createPromptRequest {
   content: string;
   userId: string;
 }
+
+export interface editPromptRequest {
+  title: string;
+  content: string;
+}
