@@ -68,7 +68,7 @@ export class PromptService extends BaseApi {
     token: string
   ) {
     return this.request<any>(`/prompts/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -18,8 +18,7 @@ const CreatePrompt: React.FC<CreatePromptProps> = ({
   onClose,
   userId,
 }) => {
-
-    const {token } = useAuth();
+  const { token } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<createPromptRequest>({
     title: "",

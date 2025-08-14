@@ -62,7 +62,7 @@ export const Modal = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:scale-95"
             >
-              <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 text-left shadow-xl transition-all">
+              <DialogPanel className="w-full relative max-w-md transform overflow-hidden rounded-lg bg-white p-6 text-left shadow-xl transition-all">
                 {/* Close Button */}
                 <div className="absolute top-4 right-5">
                   <button
