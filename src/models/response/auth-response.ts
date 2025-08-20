@@ -7,7 +7,7 @@ export interface User {
 
 export interface AuthResponse {
   user?: User;
-  token?: any;
+  token?: string;
   message?: string;
   error?: string;
 }

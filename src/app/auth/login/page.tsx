@@ -39,6 +39,7 @@ const Login = () => {
     if (response.error) {
       toast.error(response.error);
     } else if (response.data?.user && response.data?.token) {
+      console.log(response.data)
       login(response.data.user, response.data.token);
       router.push("/chat-prompt");
     }
