@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import VerifiedEmail from "./components/verifiedEmail";
 import Loader from "@/components/loader";
 
-export default function EmailVerifiedPage() {
+const EmailVerified = () => {
   return (
     <Suspense
       fallback={
@@ -16,4 +16,6 @@ export default function EmailVerifiedPage() {
       <VerifiedEmail />
     </Suspense>
   );
-}
+};
+
+export default EmailVerified;
