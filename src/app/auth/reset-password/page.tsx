@@ -1,41 +1,50 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { confirmPasswordReset } from "firebase/auth";
-import { auth } from "@/services/firebase";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Loader from "@/components/loader";
+import { AuthService } from "@/services/auth-service";
 
 const ResetPassword = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [oobCode, setOobCode] = useState("");
+
   const [newPassword, setNewPassword] = useState("");
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const code = params.get("oobCode");
-    if (code) {
-      setOobCode(code);
+    const urlToken = params.get("token");
+    if (urlToken) {
+      setToken(urlToken);
     } else {
-      toast.error("Invalid or missing reset code.");
+      toast.error("Invalid or missing reset token.");
     }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!token) {
+      toast.error("Missing reset token.");
+      return;
+    }
+
     setIsLoading(true);
     try {
-      await confirmPasswordReset(auth, oobCode, newPassword);
+      await AuthService.resetPassword({
+        token,
+        newPassword,
+      });
       toast.success("Password reset successful!");
       router.push("/auth/login");
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.message || "Failed to reset password");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

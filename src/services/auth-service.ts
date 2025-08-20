@@ -35,4 +35,10 @@ export class AuthService extends BaseApi {
       body: JSON.stringify(resetPasswordData),
     });
   }
+
+  static async verifyEmail({ token }: { token: string }) {
+    return this.request<any>(`/verify-email?token=${token}`, {
+      method: "GET",
+    });
+  }
 }
