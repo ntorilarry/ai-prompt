@@ -37,7 +37,7 @@ export class AuthService extends BaseApi {
   }
 
   static async verifyEmail(token: string) {
-    return this.request<any>(`/auth/verify-email?token=${encodeURIComponent(token)}`, {
+    return this.request<any>(`/auth/verify-email?token=${token}`, {
       method: "GET",
     });
   }
