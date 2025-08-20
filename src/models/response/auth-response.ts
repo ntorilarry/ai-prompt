@@ -1,11 +1,13 @@
 export interface User {
   id: string;
   email: string;
+  name: string;
+  role: string;
 }
 
 export interface AuthResponse {
   user?: User;
-  session?: any;
+  token?: any;
   message?: string;
   error?: string;
 }

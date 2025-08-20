@@ -38,8 +38,8 @@ const Login = () => {
 
     if (response.error) {
       toast.error(response.error);
-    } else if (response.data?.user && response.data?.session) {
-      login(response.data.user, response.data.session.access_token);
+    } else if (response.data?.user && response.data?.token) {
+      login(response.data.user, response.data.token);
       router.push("/chat-prompt");
     }
 
