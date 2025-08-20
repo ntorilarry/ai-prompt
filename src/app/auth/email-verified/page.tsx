@@ -25,7 +25,7 @@ const VerifiedEmail = () => {
       }
 
       try {
-        await AuthService.verifyEmail({ token });
+        await AuthService.verifyEmail(token);
         setIsVerified(true);
       } catch (error: any) {
         toast.error(error.message || "Verification failed");
