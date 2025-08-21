@@ -12,7 +12,7 @@ import { IoCloseCircle } from "react-icons/io5";
 
 type ButtonProps = {
   label: string;
-  onClick: any;
+  onClick?: any;
   type?: "button" | "submit" | "reset";
   className?: string;
   disabled?: boolean;

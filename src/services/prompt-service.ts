@@ -69,8 +69,9 @@ export class PromptService extends BaseApi {
     token: string
   ) {
     return this.request<any>(`/prompts/${id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(editPromptData),
@@ -78,9 +79,10 @@ export class PromptService extends BaseApi {
   }
 
   static async deletePrompt(id: string, token: string) {
-    return this.request<void>(`/prompts/${id}`, {
+    return this.request<{ message: string }>(`/prompts/${id}`, {
       method: "DELETE",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });

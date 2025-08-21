@@ -116,7 +116,7 @@ const DataTableBody = <T extends object>({
                         {row.getVisibleCells().map((cell) => (
                           <td
                             key={cell.id}
-                            className="px-6 py-4 whitespace-nowrap text-wrap max-w-xs"
+                              className="px-6 py-4 whitespace-normal text-wrap max-w-xs"
                           >
                             <span className="block text-xs font-normal text-gray-800">
                               {flexRender(

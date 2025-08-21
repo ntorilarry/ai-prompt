@@ -12,6 +12,7 @@ import DataTableBody from "@/components/dataTableBody";
 import { ColumnDef } from "@tanstack/react-table";
 import { RiEditCircleLine } from "react-icons/ri";
 import EditPrompt from "./components/editPrompt";
+import DeletePrompt from "./components/deletePrompt";
 
 const Prompt = () => {
   const { token, user } = useAuth();
@@ -150,12 +151,21 @@ const Prompt = () => {
           open={openAdd}
           onClose={() => setOpenAdd(false)}
           userId={user?.id || ""}
+          fetchPrompts={fetchPrompts}
         />
 
         <EditPrompt
           open={openEdit}
           onClose={() => setOpenEdit(false)}
           selectedPrompt={selectedPrompt}
+          fetchPrompts={fetchPrompts}
+        />
+
+        <DeletePrompt
+          open={openDelete}
+          onClose={() => setOpenDelete(false)}
+          selectedPrompt={selectedPrompt}
+          fetchPrompts={fetchPrompts}
         />
       </div>
     </MainLayout>

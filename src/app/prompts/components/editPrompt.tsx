@@ -11,12 +11,14 @@ interface EditPromptProps {
   open: boolean;
   onClose: () => void;
   selectedPrompt: any;
+  fetchPrompts?: () => void;
 }
 
 const EditPrompt: React.FC<EditPromptProps> = ({
   open,
   onClose,
   selectedPrompt,
+  fetchPrompts,
 }) => {
   const { token } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -58,6 +60,8 @@ const EditPrompt: React.FC<EditPromptProps> = ({
       toast.error(response.error);
     } else if (response.data?.message) {
       toast.success(response.data?.message);
+      fetchPrompts?.();
+      onClose();
     }
 
     setIsLoading(false);

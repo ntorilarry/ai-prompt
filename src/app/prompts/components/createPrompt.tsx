@@ -11,12 +11,14 @@ interface CreatePromptProps {
   open: boolean;
   onClose: () => void;
   userId: string;
+  fetchPrompts?: () => void;
 }
 
 const CreatePrompt: React.FC<CreatePromptProps> = ({
   open,
   onClose,
   userId,
+  fetchPrompts,
 }) => {
   const { token } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -46,6 +48,9 @@ const CreatePrompt: React.FC<CreatePromptProps> = ({
       toast.error(response.error);
     } else if (response.data?.message) {
       toast.success(response.data.message);
+      setFormData({ title: "", content: "", userId });
+      fetchPrompts?.();
+      onClose();
     }
 
     setIsLoading(false);
@@ -72,7 +77,7 @@ const CreatePrompt: React.FC<CreatePromptProps> = ({
           },
         ]}
       >
-        <form>
+        <div>
           <div className="my-3">
             <label className="block text-sm  ">Title</label>
             <input
@@ -96,7 +101,7 @@ const CreatePrompt: React.FC<CreatePromptProps> = ({
               className="mt-2 border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg  focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
             />
           </div>
-        </form>
+        </div>
       </Modal>
     </div>
   );
