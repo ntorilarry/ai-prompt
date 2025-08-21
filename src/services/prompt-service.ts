@@ -6,16 +6,10 @@ import {
 } from "@/models/request/prompt-request";
 
 export class PromptService extends BaseApi {
-  static async createPrompt(
-    createPromptData: createPromptRequest,
-    token: string
-  ) {
+  static async createPrompt(createPromptData: createPromptRequest) {
     return this.request<any>("/prompts", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+
       body: JSON.stringify(createPromptData),
     });
   }
@@ -27,7 +21,6 @@ export class PromptService extends BaseApi {
     sortOrder = "desc",
     userId,
     search,
-    token,
   }: {
     page?: number;
     size?: number;
@@ -35,7 +28,6 @@ export class PromptService extends BaseApi {
     sortOrder?: "asc" | "desc";
     userId?: string;
     search?: string;
-    token: string;
   }) {
     const queryParams = new URLSearchParams({
       page: String(page),
@@ -57,23 +49,13 @@ export class PromptService extends BaseApi {
       };
     }>(`/prompts?${queryParams.toString()}`, {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     });
   }
 
-  static async updatePrompt(
-    id: string,
-    editPromptData: editPromptRequest,
-    token: string
-  ) {
+  static async updatePrompt(id: string, editPromptData: editPromptRequest) {
     return this.request<any>(`/prompts/${id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+
       body: JSON.stringify(editPromptData),
     });
   }
@@ -81,10 +63,6 @@ export class PromptService extends BaseApi {
   static async deletePrompt(id: string, token: string) {
     return this.request<{ message: string }>(`/prompts/${id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
     });
   }
 }

@@ -20,7 +20,6 @@ const EditPrompt: React.FC<EditPromptProps> = ({
   selectedPrompt,
   fetchPrompts,
 }) => {
-  const { token } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<editPromptRequest>({
     title: "",
@@ -52,8 +51,7 @@ const EditPrompt: React.FC<EditPromptProps> = ({
     setIsLoading(true);
     const response = await PromptService.updatePrompt(
       selectedPrompt?._id,
-      formData,
-      token || ""
+      formData
     );
 
     if (response.error) {

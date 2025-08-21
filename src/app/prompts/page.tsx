@@ -15,7 +15,7 @@ import EditPrompt from "./components/editPrompt";
 import DeletePrompt from "./components/deletePrompt";
 
 const Prompt = () => {
-  const { token, user } = useAuth();
+  const { user } = useAuth();
   const [prompts, setPrompts] = useState<PromptResponse[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -29,7 +29,7 @@ const Prompt = () => {
   );
 
   const fetchPrompts = async () => {
-    if (!user?.id || !token) return; // Also check for token
+    if (!user?.id ) return; // Also check for token
     setIsLoading(true);
     try {
       const response = await PromptService.getUserPrompts({
@@ -37,7 +37,6 @@ const Prompt = () => {
         size: 10,
         userId: user.id,
         search,
-        token: token,
       });
 
       if (response.data && response.meta) {
@@ -56,7 +55,7 @@ const Prompt = () => {
 
   useEffect(() => {
     fetchPrompts();
-  }, [currentPage, search, user?.id, token]); // Add token and user.id as dependencies
+  }, [currentPage, search, user?.id]); // Add token and user.id as dependencies
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

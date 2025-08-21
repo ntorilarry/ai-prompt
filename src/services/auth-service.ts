@@ -41,4 +41,13 @@ export class AuthService extends BaseApi {
       method: "GET",
     });
   }
+
+  static async refreshToken(refreshToken: string) {
+    return this.request<AuthResponse>("/auth/refresh-token", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    });
+  }
 }

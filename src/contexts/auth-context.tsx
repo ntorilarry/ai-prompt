@@ -1,6 +1,5 @@
 "use client";
 
-
 import { User } from "@/models/response/auth-response";
 import {
   createContext,
@@ -13,7 +12,7 @@ import {
 interface AuthContextType {
   user: User | null;
   token: string | null;
-  login: (user: User, token: string) => void;
+  login: (user: User, token: string, refreshToken: string) => void;
   logout: () => void;
   isLoading: boolean;
 }
@@ -38,11 +37,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  const login = (userData: User, userToken: string) => {
+  const login = (userData: User, accessToken: string, refreshToken: string) => {
     setUser(userData);
-    setToken(userToken);
+    setToken(accessToken);
     localStorage.setItem("user", JSON.stringify(userData));
-    localStorage.setItem("token", userToken);
+    localStorage.setItem("token", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
   };
 
   const logout = () => {
@@ -50,6 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
   };
 
   return (

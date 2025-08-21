@@ -20,7 +20,7 @@ const CreatePrompt: React.FC<CreatePromptProps> = ({
   userId,
   fetchPrompts,
 }) => {
-  const { token } = useAuth();
+
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<createPromptRequest>({
     title: "",
@@ -42,7 +42,7 @@ const CreatePrompt: React.FC<CreatePromptProps> = ({
     e.preventDefault();
 
     setIsLoading(true);
-    const response = await PromptService.createPrompt(formData, token || "");
+    const response = await PromptService.createPrompt(formData);
 
     if (response.error) {
       toast.error(response.error);
