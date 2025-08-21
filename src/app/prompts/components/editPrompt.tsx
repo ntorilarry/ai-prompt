@@ -49,7 +49,7 @@ const EditPrompt: React.FC<EditPromptProps> = ({
 
     setIsLoading(true);
     const response = await PromptService.updatePrompt(
-      selectedPrompt?.id,
+      selectedPrompt?._id,
       formData,
       token || ""
     );
