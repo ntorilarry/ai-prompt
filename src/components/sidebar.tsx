@@ -3,6 +3,10 @@
 import { IoAdd, IoChatbubble } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/auth-context";
+import { CreateTagResponse } from "@/models/response/chat-response";
+import { useEffect, useState } from "react";
+import { ChatService } from "@/services/chat-service";
+import Loader from "./loader";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -22,6 +26,31 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
     logout();
     router.push("/auth/login");
   };
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [tags, setTags] = useState<CreateTagResponse[]>([]);
+
+  const fetchTags = async () => {
+    setIsLoading(true);
+    try {
+      const response = await ChatService.getTags();
+
+      if (response.data && response.meta) {
+        setTags(Array.isArray(response.data) ? response.data : []);
+      }
+
+      console.log("Fetched Tags:", response.data);
+    } catch (error) {
+      console.error("Failed to fetch tags:", error);
+      // Optionally set some error state here
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTags();
+  }, []);
   return (
     <>
       {/* Sidebar */}
@@ -47,7 +76,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
           {/* Navigation */}
           <div className="flex-1 overflow-y-auto p-4">
-            <ul className="space-y-1.5">
+            <ul className="space-y-1">
               {sidebarItems.map((item, index) => (
                 <li key={index}>
                   <a
@@ -59,17 +88,24 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                   </a>
                 </li>
               ))}
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center gap-x-3 py-2 px-3 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
-                >
-                  <div className="shrink-0 size-4 text-blue-600">⚡</div>
-                  <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-                    Upgrade Plan
-                  </span>
-                </a>
-              </li>
+              <li className="p-3 text-xs font-bold">Chats</li>
+
+              {isLoading ? (
+                <div className="flex justify-center py-4">
+                  <Loader />
+                </div>
+              ) : (
+                tags.map((item, index) => (
+                  <li key={index}>
+                    <a
+                      href={`/chat-prompt/${item._id}`}
+                      className="flex items-center py-2 px-3 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
 
