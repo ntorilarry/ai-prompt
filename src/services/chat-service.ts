@@ -24,7 +24,7 @@ export class ChatService extends BaseApi {
   static async getTagChatHistory(tagId: string) {
     return this.request<{
       data: listTagHistoryResponse[];
-    }>(`/chat/tags/${tagId}/history`, {
+    }>(`/chat/chat-history/${tagId}`, {
       method: "GET",
     });
   }
