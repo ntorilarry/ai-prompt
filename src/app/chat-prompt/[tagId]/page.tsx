@@ -43,6 +43,7 @@ const ChatPromptList = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (!formData.message.trim()) return;
 
     setIsLoading(true);
     const response = await ChatService.createChat(formData);
@@ -50,8 +51,7 @@ const ChatPromptList = () => {
     if (response.error) {
       toast.error(response.error);
     } else if (response.data?.message) {
-      toast.success(response.data.message);
-      setFormData({ message: "" });
+      setFormData({ message: "", tagId: tagId });
       fetchChatHistory();
     }
 
@@ -81,6 +81,14 @@ const ChatPromptList = () => {
   useEffect(() => {
     fetchChatHistory();
   }, []);
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   return (
     <MainLayout>
       <div className="flex-1 flex flex-col h-screen">
@@ -162,6 +170,7 @@ const ChatPromptList = () => {
               name="message"
               value={formData.message}
               onChange={handleFormChanged}
+              onKeyDown={handleKeyPress}
               className="p-3 sm:p-4 pb-12 sm:pb-12 block w-full text-black bg-gray-100 border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="Ask me anything..."
               rows={3}

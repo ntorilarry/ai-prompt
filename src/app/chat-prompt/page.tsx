@@ -28,6 +28,7 @@ const ChatPrompt = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (!formData.message.trim()) return;
 
     setIsLoading(true);
     const response = await ChatService.createChat(formData);
@@ -41,6 +42,14 @@ const ChatPrompt = () => {
 
     setIsLoading(false);
   };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   return (
     <MainLayout>
       {/* Content */}
@@ -58,11 +67,12 @@ const ChatPrompt = () => {
           {/* Search */}
           <div className="mt-10 max-w-2xl w-full mx-auto px-4 sm:px-6 lg:px-8">
             <div className="relative">
-              <input
-                type="text"
+              <textarea
+                rows={3}
                 name="message"
-                className="p-3 sm:p-4 block w-full border-2 border-gray-200 rounded-full sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                className="p-3 sm:p-4 block w-full border-2 border-gray-200 bg-gray-100 rounded-xl sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                 placeholder="Ask me anything..."
+                onKeyDown={handleKeyPress}
                 onChange={handleFormChanged}
               />
               <div className="absolute top-1/2 end-2 -translate-y-1/2">
