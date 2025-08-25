@@ -13,6 +13,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { RiEditCircleLine } from "react-icons/ri";
 import EditPrompt from "./components/editPrompt";
 import DeletePrompt from "./components/deletePrompt";
+import { MdDelete } from "react-icons/md";
 
 const Prompt = () => {
   const { user } = useAuth();
@@ -99,7 +100,7 @@ const Prompt = () => {
                 onClick={() => handleDelete(prompt)}
                 className="py-2 px-2 inline-flex items-center gap-x-2 text-xs font-medium rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
               >
-                <RiEditCircleLine />
+                <MdDelete />
                 Delete
               </button>
             </div>

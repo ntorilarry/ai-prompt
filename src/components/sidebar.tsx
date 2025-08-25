@@ -1,6 +1,7 @@
 "use client";
 
 import { IoAdd, IoChatbubble } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/auth-context";
 import { CreateTagResponse } from "@/models/response/chat-response";
@@ -34,29 +35,38 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
     setIsLoading(true);
     try {
       const response = await ChatService.getTags();
-
       if (response.data && response.meta) {
         setTags(Array.isArray(response.data) ? response.data : []);
       }
-
-      console.log("Fetched Tags:", response.data);
     } catch (error) {
       console.error("Failed to fetch tags:", error);
-      // Optionally set some error state here
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleDeleteTag = async (tagId: string) => {
+    if (!confirm("Are you sure you want to delete this chat history?")) return;
+
+    try {
+      await ChatService.deleteTagChatHistory(tagId);
+      setTags((prev) => prev.filter((tag) => tag._id !== tagId));
+      fetchTags()
+    } catch (error) {
+      console.error("Failed to delete tag history:", error);
     }
   };
 
   useEffect(() => {
     fetchTags();
   }, []);
+
   return (
     <>
       {/* Sidebar */}
       <div
         className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200  transform transition-transform duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
         lg:translate-x-0 lg:static lg:inset-0
       `}
@@ -95,14 +105,24 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                   <Loader />
                 </div>
               ) : (
-                tags.map((item, index) => (
-                  <li key={index}>
+                tags.map((item) => (
+                  <li
+                    key={item._id}
+                    className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-100"
+                  >
                     <a
                       href={`/chat-prompt/${item._id}`}
-                      className="flex items-center py-2 px-3 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                      className="flex-1 text-sm text-gray-700 truncate focus:outline-none"
                     >
                       {item.name}
                     </a>
+                    <button
+                      onClick={() => handleDeleteTag(item._id)}
+                      className="ml-2 text-gray-300 hover:text-red-600 focus:outline-none"
+                      title="Delete chat history"
+                    >
+                      <MdDelete size={18} />
+                    </button>
                   </li>
                 ))
               )}
@@ -111,7 +131,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
           {/* Footer */}
           <div className="mt-auto">
-            <div className="p-4 border-t border-gray-200 ">
+            <div className="p-4 border-t border-gray-200">
               <button
                 type="button"
                 onClick={handleLogout}

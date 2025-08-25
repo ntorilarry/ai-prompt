@@ -28,4 +28,12 @@ export class ChatService extends BaseApi {
       method: "GET",
     });
   }
+
+  static async deleteTagChatHistory(tagId: string) {
+    return this.request<{
+      data: any;
+    }>(`/chat/chat-history/${tagId}`, {
+      method: "DELETE",
+    });
+  }
 }
